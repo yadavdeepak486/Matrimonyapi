@@ -74,8 +74,8 @@ mongoose.connect(process.env.DATABASE, {
 })
 
 
-app.listen(4000 || process.env.PORT, () => {
-    console.log('Example app listening on port 4000!');
+app.listen(4545 || process.env.PORT, () => {
+    console.log('Example app listening on port 4545!');
 });
 
 

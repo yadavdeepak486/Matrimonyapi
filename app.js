@@ -36,26 +36,26 @@ const employedin = require('./routes/employedin')
 
 //Use
 // app.use('/api',user)
-app.use('/api', caste)
+app.use('/api', caste)//
 app.use('/api', user)
-app.use('/api', religion)
-app.use('/api', country)
-app.use('/api', state)
-app.use('/api', city)
+app.use('/api', religion)//
+app.use('/api', country)//
+app.use('/api', state)//
+app.use('/api', city)//
 app.use('/api', staff)
-app.use('/api', profilefor)
-app.use('/api', familyvalues)
-app.use('/api', familystatus)
-app.use('/api', maritalstatus)
+app.use('/api', profilefor)//
+app.use('/api', familyvalues)//
+app.use('/api', familystatus)//
+app.use('/api', maritalstatus)//
 app.use('/api', profileview)
 app.use('/api', bug)
 app.use('/api', report)
-app.use('/api', education)
-app.use('/api', occupation)
-app.use('/api', star)
-app.use('/api', moonsign)
-app.use('/api', height)
-app.use('/api', employedin)
+app.use('/api', education)//
+app.use('/api', occupation)//
+app.use('/api', star)//
+app.use('/api', moonsign)//
+app.use('/api', height)//
+app.use('/api', employedin)//
 
 app.get('/api', (req, res) => {
     res.send('Hello World!');

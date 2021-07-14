@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
     "mongoose": "^5.13.0",
+    "mongoose-sequence": "^5.3.1",
     "npm": "^7.19.1",
     "otp-generator": "^2.0.1",
     "sendotp": "^1.2.9"

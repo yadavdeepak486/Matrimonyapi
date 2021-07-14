@@ -2,13 +2,18 @@ const mongoose = require("mongoose")
 const Schema = mongoose.Schema
 
 
-const casteSchema = new Schema({
+const educationSchema = new Schema({
 
     name: {
         type: String,
         require: true
     },
-    religion: { type: Schema.Types.ObjectId, ref: 'religion' },
+    shortname: {
+        type: String,
+    },
+    place: {
+        type: String,
+    },
     sortorder: {
         type: Number,
     },
@@ -16,8 +21,9 @@ const casteSchema = new Schema({
         type: String,
         default: "Active"
     }
+
 },
     { timestamps: true }
 )
 
-module.exports = mongoose.model("caste", casteSchema)
+module.exports = mongoose.model("education", educationSchema)

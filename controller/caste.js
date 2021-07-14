@@ -1,17 +1,17 @@
 const Caste = require('../models/caste');
 
 exports.addcaste = async (req, res) => {
-    const { name, religion, status,sortorder } = req.body
+    const { name, religion, status, sortorder } = req.body
 
     const newCaste = new Caste({
         name: name,
         religion: religion,
         status: status,
-        sortorder:sortorder
+        sortorder: sortorder
     });
 
-    const findexist = await Caste.findOne({name:name})
-    if(findexist){
+    const findexist = await Caste.findOne({ name: name })
+    if (findexist) {
         res.status(400).json({
             status: false,
             msg: "Already Exists",
@@ -19,27 +19,27 @@ exports.addcaste = async (req, res) => {
         })
     } else {
         newCaste.save()
-        .then(
-            res.status(200).json({
-                status: true,
-                msg: "success",
-                data: newCaste
+            .then(
+                res.status(200).json({
+                    status: true,
+                    msg: "success",
+                    data: newCaste
+                })
+            )
+            .catch(error => {
+                res.status(400).json({
+                    status: false,
+                    msg: "error",
+                    error: error
+                })
             })
-        )
-        .catch(error => {
-            res.status(400).json({
-                status: false,
-                msg: "error",
-                error: error
-            })
-        })
     }
-    
+
 }
 
 exports.editcaste = async (req, res) => {
 
-    const findandUpdateEntry = await Caste.findOneAndUpdate({ _id: req.params.id }, { $set: req.body },{new: true}).populate('religion')
+    const findandUpdateEntry = await Caste.findOneAndUpdate({ _id: req.params.id }, { $set: req.body }, { new: true }).populate('religion')
 
     if (findandUpdateEntry) {
         res.status(200).json({
@@ -77,8 +77,8 @@ exports.onecaste = async (req, res) => {
 }
 
 
-exports.allcaste = async (req, res) => {
-    const findall = await Caste.find().populate('religion').sort({sortorder:1})
+exports.allcastebasedonreligion = async (req, res) => {
+    const findall = await Caste.find({ religion: req.params.id }).populate('religion').sort({ sortorder: 1 })
     if (findall) {
         res.status(200).json({
             status: true,
@@ -92,8 +92,26 @@ exports.allcaste = async (req, res) => {
             error: "error"
         })
     }
-
 }
+
+
+exports.allcaste = async (req, res) => {
+    const findall = await Caste.find().populate('religion').sort({ sortorder: 1 })
+    if (findall) {
+        res.status(200).json({
+            status: true,
+            msg: "success",
+            data: findall
+        })
+    } else {
+        res.status(400).json({
+            status: false,
+            msg: "error",
+            error: "error"
+        })
+    }
+}
+
 
 exports.deletecaste = async (req, res) => {
     try {

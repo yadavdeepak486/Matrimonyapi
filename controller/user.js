@@ -171,13 +171,25 @@ exports.adddetails = async (req, res) => {
     /// check user not registered
     const FIND_USER = await userDetails.findOne({ Mobile: Mobile })
     if (FIND_USER) {
-        res.send({ MSG: "USER ALREADY REGISTERED WITH THIS MOBILE NUMBER" })
+        res.status(400).json({
+            status: false,
+            msg: "Already Exists",
+            data: {}
+        })
     }
     else {
         await DATA.save().then((result) => {
-            res.send({ RESPONCE: result })
-        }).catch((e) => {
-            res.send({ ERROR: e })
+            res.status(200).json({
+                status: true,
+                msg: "success",
+                data: result
+            })
+        }).catch((error) => {
+            res.status(400).json({
+                status: false,
+                msg: "error",
+                error: error
+            })
         })
     }
 }
@@ -192,23 +204,23 @@ exports.login = async (req, res) => {
 
     if (finddetails) {
         res.send(finddetails)
-        // res.send({ user: finddetails })
-        //const validPass = await bcrypt.compare(password, finddetails.password);
-        // console.log(validPass)
+        res.send({ user: finddetails })
+        const validPass = await bcrypt.compare(password, finddetails.password);
+        console.log(validPass)
 
-        // if (validPass) {
-        //     const token = jwt.sign({ id: finddetails._id, MatriID: finddetails.MatriID }, key);
-        //     res.header("auth-token", token).status(200).send({
-        //         status: true,
-        //         token: token,
-        //         msg: "success",
-        //         user: user,
-        //         user_type: "user"
-        //     });
-        // }
-        // else {
-        //     res.send({ MSG: "Incorrect Password" })
-        // }
+        if (validPass) {
+            const token = jwt.sign({ id: finddetails._id, MatriID: finddetails.MatriID }, key);
+            res.header("auth-token", token).status(200).send({
+                status: true,
+                token: token,
+                msg: "success",
+                user: user,
+                user_type: "user"
+            });
+        }
+        else {
+            res.send({ MSG: "Incorrect Password" })
+        }
     }
     else {
         res.send({ MSG: "USER DOES NOT EXSIST" })

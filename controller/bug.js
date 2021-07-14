@@ -1,4 +1,4 @@
-const Bug = require('../models/Bug')
+const Bug = require('../models/bug')
 
 
 exports.addbug = async (req, res) => {
